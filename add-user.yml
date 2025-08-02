@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Create user simone with password
+      tags: always
+      user:
+        name: simone
+        groups: root
+        password: "{{ 'Simone123!' | password_hash('sha512') }}"
+
+    
+    - name: Add SSH key for simone
+      tags: always
+      authorized_key:
+        user: simone
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG00lGy/l53RGqiGSbUlo1dqpaQeH+CLU0tBmy2ROtB"
+   
